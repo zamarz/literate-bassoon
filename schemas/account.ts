@@ -33,7 +33,8 @@ export const account = {
       name: "user",
       title: "user",
       type: "reference",
-      to: { type: "user" },
+      to: [{ type: "user" }],
+      //this might need to be {type: 'user}
     }),
   ],
 };
