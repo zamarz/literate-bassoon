@@ -3,6 +3,9 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import { signUp } from "next-auth-sanity/client";
+import { signIn, useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 const defaultFormData = {
   email: "",
@@ -21,13 +24,31 @@ const Auth = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const { data: session } = useSession();
+
+  console.log(session);
+
+  const loginHandler = async () => {
+    try {
+      await signIn();
+      //push to homepage
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong...");
+    }
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      console.log(formData);
+      const user = await signUp(formData);
+      if (user) {
+        toast.success("Success! Please sign in.");
+      }
     } catch (error) {
       console.log(error);
+      toast.error("Something went wrong...");
     } finally {
       setFormData(defaultFormData);
     }
@@ -42,8 +63,14 @@ const Auth = () => {
           </h1>
           <p>OR</p>
           <span className="inline-flex items-center">
-            <AiFillGithub className="mr-3 text-4xl cursor-pointer text-black dark:text-white" />
-            <FcGoogle className="ml text-4xl cursor-pointer" />
+            <AiFillGithub
+              className="mr-3 text-4xl cursor-pointer text-black dark:text-white"
+              onClick={loginHandler}
+            />
+            <FcGoogle
+              className="ml text-4xl cursor-pointer"
+              onClick={loginHandler}
+            />
           </span>
         </div>
         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
@@ -83,7 +110,9 @@ const Auth = () => {
           </button>
         </form>
 
-        <button className="text-blue-700 underline">Login</button>
+        <button onClick={loginHandler} className="text-blue-700 underline">
+          Login
+        </button>
       </div>
     </section>
   );

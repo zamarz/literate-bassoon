@@ -34,6 +34,16 @@ export const user = {
       hidden: true,
     }),
     defineField({
+      name: "email",
+      title: "Email",
+      type: "string",
+    }),
+    defineField({
+      name: "emailVerified",
+      hidden: true,
+      type: "datetime",
+    }),
+    defineField({
       name: "about",
       title: "About",
       type: "text",
