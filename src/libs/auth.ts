@@ -25,18 +25,17 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     session: async ({ session, token }) => {
       const userEmail = token.email;
-      const user = await sanityClient.fetch<{ _id: string }>(
+      const userIdObject = await sanityClient.fetch<{ _id: string }>(
         `*[_type == 'user' && email == $email][0] {
         _id
       }`,
         { email: userEmail }
       );
-      console.log(user);
       return {
         ...session,
         user: {
           ...session.user,
-          id: user._id,
+          id: userIdObject._id,
         },
       };
     },
