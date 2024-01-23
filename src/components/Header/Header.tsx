@@ -31,6 +31,7 @@ const Header = () => {
                       alt={session.user.name!}
                       width={40}
                       height={40}
+                      className="scale-animation img"
                     />
                   </div>
                 ) : (
