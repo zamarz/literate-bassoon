@@ -1,3 +1,4 @@
+import { Gallery } from "@/components/Gallery/Gallery";
 import HeroSection from "@/components/HeroSection/HeroSection";
 import PageSearch from "@/components/PageSearch/PageSearch";
 
@@ -6,10 +7,9 @@ const Home = () => {
     <>
       <HeroSection />
       <PageSearch />
-      {/* FEATURED ROOM
-      Gallery
-      Newsletter 
-       */}
+      {/* FEATURED ROOM */}
+      <Gallery />
+      {/* Newsletter  */}
     </>
   );
 };
