@@ -27,7 +27,6 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Images */}
       <div className="md:grid hidden gap-8 grid-cols-1">
         <div className="rounded-2xl overflow-hidden h-48">
           <Image
