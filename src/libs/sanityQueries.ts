@@ -9,5 +9,5 @@ export const getRoomsQuery = groq`*[_type == 'hotelRoom'] {
 }`;
 
 export const getRoom = groq`*[_type == 'hotelRoom' && slug.current == $slug][0] {
-    _id, coverImage, description, dimension, isBooked, discounts, images, isFeatured, name, price, numberOfBeds, offeredAmenities, slug, specialNote, type
+    _id, coverImage, description, dimension, isBooked, discount, images, isFeatured, name, price, numberOfBeds, offeredAmenities, slug, specialNote, type
 }`;
