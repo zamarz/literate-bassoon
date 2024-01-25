@@ -26,6 +26,11 @@ const HotelPhotoGallery: FC<{ photos: ImageType[] }> = ({ photos }) => {
     );
   };
 
+  const maximumVisiblePhotos = 4;
+  const totalPhotos = photos.length;
+  const displayPhotos = photos.slice(1, maximumVisiblePhotos - 1);
+  const remainingPhotosCount = totalPhotos - maximumVisiblePhotos;
+
   return (
     <div className="container mx-auto">
       <div className="grid md:grid-cols-2 relative gap-5 px-3">
@@ -59,6 +64,39 @@ const HotelPhotoGallery: FC<{ photos: ImageType[] }> = ({ photos }) => {
           <span>
             {currentPhotoIndex + 1} / {photos.length}
           </span>
+        </div>
+        <div className="hidden md:grid grid-cols-2 h-full gap-5">
+          {displayPhotos.map((photo, index) => (
+            <div
+              key={index}
+              className="cursor-pointer h-64 rounded-2xl overflow-hidden"
+            >
+              <Image
+                width={150}
+                height={150}
+                src={photo.url}
+                alt={`Room Photo ${index + 2}`}
+                className="img scale-animation"
+              />
+            </div>
+          ))}
+          {remainingPhotosCount > 0 && (
+            <div
+              className="cursor-pointer relative h-64 rounded-2xl overflow-hidden"
+              onClick={openModal.bind(this, maximumVisiblePhotos)}
+            >
+              <Image
+                width={150}
+                height={150}
+                src={photos[maximumVisiblePhotos - 1].url}
+                alt={`Room Photo ${maximumVisiblePhotos}`}
+                className="img"
+              />
+              <div className="absolute cursor-pointer text-white inset-0 flex justify-center bg-[rgba(0,0,0,0.5)] items-center text-2xl">
+                + {remainingPhotosCount}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
