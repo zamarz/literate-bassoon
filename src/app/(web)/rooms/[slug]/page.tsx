@@ -9,11 +9,15 @@ import { LiaFireExtinguisherSolid } from "react-icons/lia";
 import { AiOutlineMedicineBox } from "react-icons/ai";
 import { GiSmokeBomb } from "react-icons/gi";
 import BookRoomCta from "@/components/BookRoomCta/BookRoomCta";
+import { useState } from "react";
 
 const RoomDetails = (props: { params: { slug: string } }) => {
   const {
     params: { slug },
   } = props;
+
+  const [checkInDate, setCheckInDate] = useState<Date | null>(null);
+  const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
 
   const fetchRoom = async () => getRoom(slug);
 
@@ -104,7 +108,13 @@ const RoomDetails = (props: { params: { slug: string } }) => {
             </div>
           </div>
           <div className="md:col-span-4 rounded-xl shadow-lg dark:shadow dark:shadow-white sticky top-10 h-fit overflow-auto">
-            <BookRoomCta discount={room.discount} price={room.price} />
+            <BookRoomCta
+              discount={room.discount}
+              price={room.price}
+              specialNote={room.specialNote}
+              checkInDate={checkInDate}
+              setCheckInDate={setCheckInDate}
+            />
           </div>
         </div>
       </div>
