@@ -8,6 +8,7 @@ import { MdOutlineCleaningServices } from "react-icons/md";
 import { LiaFireExtinguisherSolid } from "react-icons/lia";
 import { AiOutlineMedicineBox } from "react-icons/ai";
 import { GiSmokeBomb } from "react-icons/gi";
+import BookRoomCta from "@/components/BookRoomCta/BookRoomCta";
 
 const RoomDetails = (props: { params: { slug: string } }) => {
   const {
@@ -103,7 +104,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
             </div>
           </div>
           <div className="md:col-span-4 rounded-xl shadow-lg dark:shadow dark:shadow-white sticky top-10 h-fit overflow-auto">
-            {/* BOOK ROOMS */}
+            <BookRoomCta />
           </div>
         </div>
       </div>
