@@ -10,6 +10,7 @@ import { AiOutlineMedicineBox } from "react-icons/ai";
 import { GiSmokeBomb } from "react-icons/gi";
 import BookRoomCta from "@/components/BookRoomCta/BookRoomCta";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const RoomDetails = (props: { params: { slug: string } }) => {
   const {
@@ -42,7 +43,29 @@ const RoomDetails = (props: { params: { slug: string } }) => {
     return null;
   };
 
-  const handleBookNowClick = () => {};
+  const handleBookNowClick = () => {
+    if (!checkInDate || !checkOutDate)
+      return toast.error("Please provide checkin / checkout date");
+
+    if (checkInDate > checkOutDate)
+      return toast.error("Please choose a valid check-in period");
+
+    const numberOfDays = calcNumDays();
+
+    const hotelRoomSlug = room.slug.current;
+
+    //Integrate Stripe
+  };
+
+  const calcNumDays = () => {
+    if (!checkInDate || !checkOutDate) return;
+
+    const timeDifference = checkOutDate.getTime() - checkInDate.getTime();
+
+    const noOfDays = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
+
+    return noOfDays;
+  };
 
   return (
     <div>
