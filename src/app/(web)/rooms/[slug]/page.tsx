@@ -18,6 +18,8 @@ const RoomDetails = (props: { params: { slug: string } }) => {
 
   const [checkInDate, setCheckInDate] = useState<Date | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
+  const [adults, setAdults] = useState<number>(1);
+  const [children, setChildren] = useState<number>(0);
 
   const fetchRoom = async () => getRoom(slug);
 
@@ -127,6 +129,10 @@ const RoomDetails = (props: { params: { slug: string } }) => {
               checkOutDate={checkOutDate}
               setCheckOutDate={setCheckOutDate}
               calcMinCheckoutDate={calcMinCheckoutDate}
+              adults={adults}
+              children={children}
+              setAdults={setAdults}
+              setChildren={setChildren}
             />
           </div>
         </div>
