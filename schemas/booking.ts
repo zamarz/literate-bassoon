@@ -26,7 +26,7 @@ export const booking = {
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "checkioutDate",
+      name: "checkoutDate",
       title: "Check-out Date",
       type: "date",
       validation: (Rule) => Rule.required(),
