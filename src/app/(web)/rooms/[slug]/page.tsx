@@ -42,6 +42,8 @@ const RoomDetails = (props: { params: { slug: string } }) => {
     return null;
   };
 
+  const handleBookNowClick = () => {};
+
   return (
     <div>
       <HotelPhotoGallery photos={room.images} />
@@ -133,6 +135,8 @@ const RoomDetails = (props: { params: { slug: string } }) => {
               children={children}
               setAdults={setAdults}
               setChildren={setChildren}
+              isBooked={room.isBooked}
+              handleBookNowClick={handleBookNowClick}
             />
           </div>
         </div>
