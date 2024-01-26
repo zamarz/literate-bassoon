@@ -104,7 +104,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
             </div>
           </div>
           <div className="md:col-span-4 rounded-xl shadow-lg dark:shadow dark:shadow-white sticky top-10 h-fit overflow-auto">
-            <BookRoomCta />
+            <BookRoomCta discount={room.discount} price={room.price} />
           </div>
         </div>
       </div>
