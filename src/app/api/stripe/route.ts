@@ -70,6 +70,7 @@ export async function POST(req: Request, res: Response) {
               name: room.name,
               images: room.images.map((image) => image.url),
             },
+            unit_amount: parseInt((totalPrice * 100).toString()),
           },
         },
       ],

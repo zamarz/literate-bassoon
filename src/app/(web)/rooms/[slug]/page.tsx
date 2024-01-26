@@ -19,8 +19,8 @@ const RoomDetails = (props: { params: { slug: string } }) => {
     params: { slug },
   } = props;
 
-  const [checkInDate, setCheckInDate] = useState<Date | null>(null);
-  const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
+  const [checkinDate, setCheckInDate] = useState<Date | null>(null);
+  const [checkoutDate, setCheckOutDate] = useState<Date | null>(null);
   const [adults, setAdults] = useState<number>(1);
   const [children, setChildren] = useState<number>(0);
 
@@ -36,8 +36,8 @@ const RoomDetails = (props: { params: { slug: string } }) => {
   if (!room) return <LoadingSpinner />;
 
   const calcMinCheckoutDate = () => {
-    if (checkInDate) {
-      const nextDay = new Date(checkInDate);
+    if (checkinDate) {
+      const nextDay = new Date(checkinDate);
       nextDay.setDate(nextDay.getDate() + 1);
       return nextDay;
     }
@@ -46,10 +46,10 @@ const RoomDetails = (props: { params: { slug: string } }) => {
   };
 
   const handleBookNowClick = async () => {
-    if (!checkInDate || !checkOutDate)
+    if (!checkinDate || !checkoutDate)
       return toast.error("Please provide checkin / checkout date");
 
-    if (checkInDate > checkOutDate)
+    if (checkinDate > checkoutDate)
       return toast.error("Please choose a valid check-in period");
 
     const numberOfDays = calcNumDays();
@@ -59,8 +59,8 @@ const RoomDetails = (props: { params: { slug: string } }) => {
 
     try {
       const { data: stripeSession } = await axios.post("/api/stripe", {
-        checkInDate,
-        checkOutDate,
+        checkinDate,
+        checkoutDate,
         adults,
         children,
         numberOfDays,
@@ -82,9 +82,9 @@ const RoomDetails = (props: { params: { slug: string } }) => {
   };
 
   const calcNumDays = () => {
-    if (!checkInDate || !checkOutDate) return;
+    if (!checkinDate || !checkoutDate) return;
 
-    const timeDifference = checkOutDate.getTime() - checkInDate.getTime();
+    const timeDifference = checkoutDate.getTime() - checkinDate.getTime();
 
     const noOfDays = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
 
@@ -173,9 +173,9 @@ const RoomDetails = (props: { params: { slug: string } }) => {
               discount={room.discount}
               price={room.price}
               specialNote={room.specialNote}
-              checkInDate={checkInDate}
+              checkInDate={checkinDate}
               setCheckInDate={setCheckInDate}
-              checkOutDate={checkOutDate}
+              checkOutDate={checkoutDate}
               setCheckOutDate={setCheckOutDate}
               calcMinCheckoutDate={calcMinCheckoutDate}
               adults={adults}
