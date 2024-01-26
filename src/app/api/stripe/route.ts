@@ -76,6 +76,11 @@ export async function POST(req: Request, res: Response) {
       payment_method_types: ["card"],
       success_url: `${origin}/users/${userId}`,
     });
+
+    return NextResponse.json(stripeSession, {
+      status: 200,
+      statusText: "Payment session created",
+    });
   } catch (error: any) {
     console.log("Payment failed");
     return new NextResponse(error, { status: 500 });
