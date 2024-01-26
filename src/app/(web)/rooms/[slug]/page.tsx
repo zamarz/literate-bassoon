@@ -30,6 +30,16 @@ const RoomDetails = (props: { params: { slug: string } }) => {
 
   if (!room) return <LoadingSpinner />;
 
+  const calcMinCheckoutDate = () => {
+    if (checkInDate) {
+      const nextDay = new Date(checkInDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+      return nextDay;
+    }
+
+    return null;
+  };
+
   return (
     <div>
       <HotelPhotoGallery photos={room.images} />
@@ -114,6 +124,9 @@ const RoomDetails = (props: { params: { slug: string } }) => {
               specialNote={room.specialNote}
               checkInDate={checkInDate}
               setCheckInDate={setCheckInDate}
+              checkOutDate={checkOutDate}
+              setCheckOutDate={setCheckOutDate}
+              calcMinCheckoutDate={calcMinCheckoutDate}
             />
           </div>
         </div>

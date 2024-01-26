@@ -7,13 +7,25 @@ import "react-datepicker/dist/react-datepicker.css";
 type Props = {
   checkInDate: Date | null;
   setCheckInDate: Dispatch<SetStateAction<Date | null>>;
+  checkOutDate: Date | null;
+  setCheckOutDate: Dispatch<SetStateAction<Date | null>>;
   price: number;
   discount: number;
   specialNote: string;
+  calcMinCheckoutDate: () => Date | null;
 };
 
 const BookRoomCta: FC<Props> = (props) => {
-  const { price, discount, specialNote, checkInDate, setCheckInDate } = props;
+  const {
+    price,
+    discount,
+    specialNote,
+    checkInDate,
+    setCheckInDate,
+    checkOutDate,
+    setCheckOutDate,
+    calcMinCheckoutDate,
+  } = props;
 
   const discountPrice = price - (price / 100) * discount;
 
@@ -52,6 +64,23 @@ const BookRoomCta: FC<Props> = (props) => {
             dateFormat="dd/MM/yyyy"
             minDate={new Date()}
             id="check-in-date"
+            className="w-full border text-black border-gray-300 rounded-lg p-2.5 focus:ring-primary focus:border-primary"
+          />
+        </div>
+        <div className="w-50% pl-2">
+          <label
+            htmlFor="check-out-date"
+            className="block text-sm font-medium text-gray-900 dark:text-gray-400"
+          >
+            Check Out date
+          </label>
+          <DatePicker
+            selected={checkOutDate}
+            onChange={(date) => setCheckOutDate(date)}
+            dateFormat="dd/MM/yyyy"
+            disabled={!checkInDate}
+            minDate={calcMinCheckoutDate()}
+            id="check-out-date"
             className="w-full border text-black border-gray-300 rounded-lg p-2.5 focus:ring-primary focus:border-primary"
           />
         </div>
