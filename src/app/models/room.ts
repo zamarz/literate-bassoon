@@ -9,7 +9,7 @@ export type Image = {
 
 type Amenity = {
   _key: string;
-  amentiy: string;
+  amenity: string;
   icon: string;
 };
 
@@ -23,6 +23,7 @@ export type Room = {
   coverImage: CoverImage;
   description: string;
   discount: number;
+  dimension: string;
   images: Image[];
   isBooked: boolean;
   isFeatured: boolean;
