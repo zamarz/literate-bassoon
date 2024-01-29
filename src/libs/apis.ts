@@ -102,3 +102,11 @@ export async function getUserBooking(userId: string) {
   );
   return result;
 }
+
+export async function getUserData(userId: string) {
+  const result = await sanityClient.fetch(
+    queries.getUserDataQuery,
+    { userId },
+    { cache: "no-cache" }
+  );
+}

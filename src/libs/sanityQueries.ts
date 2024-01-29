@@ -29,3 +29,13 @@ export const getUserBookingsQuery = groq`*[_type == 'booking' && user._ref == $u
      discount
 
 }`;
+
+export const getUserDataQuery = groq`*[type == 'user'[0] && id == $userId] {
+    _id,
+    name,
+    email,
+    isAdmin,
+    about,
+    _createdAt,
+    image,
+}`;
