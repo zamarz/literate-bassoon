@@ -1,4 +1,4 @@
-import { CreateBookingDto, Room } from "@/app/models/room";
+import { Booking, CreateBookingDto, Room } from "@/app/models/room";
 import sanityClient from "./sanity";
 import * as queries from "./sanityQueries";
 import axios from "axios";
@@ -91,3 +91,14 @@ export const updateHotelRoom = async (hotelRoomId: string) => {
   );
   return data;
 };
+
+export async function getUserBooking(userId: string) {
+  const result = await sanityClient.fetch<Booking>(
+    queries.getUserBookingsQuery,
+    {
+      userId,
+    },
+    { cache: "no-cache" }
+  );
+  return result;
+}
