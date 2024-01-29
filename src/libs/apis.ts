@@ -109,4 +109,6 @@ export async function getUserData(userId: string) {
     { userId },
     { cache: "no-cache" }
   );
+
+  return result;
 }
