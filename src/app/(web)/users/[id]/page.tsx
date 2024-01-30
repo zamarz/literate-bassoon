@@ -142,6 +142,7 @@ const UserDetails = (props: { params: { id: string } }) => {
               </li>
             </ol>
           </nav>
+          {currentNav === "bookings" ? userBookings && <>Table</> : <></>}
         </div>
       </div>
     </div>
