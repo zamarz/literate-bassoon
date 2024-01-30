@@ -8,11 +8,18 @@ import useSWR from "swr";
 import LoadingSpinner from "../../loading";
 import { FaSignOutAlt } from "react-icons/fa";
 import { signOut } from "next-auth/react";
+import { useState } from "react";
+import { BsJournalBookmarkFill } from "react-icons/bs";
+import { GiMoneyStack } from "react-icons/gi";
 
 const UserDetails = (props: { params: { id: string } }) => {
   const {
     params: { id: userId },
   } = props;
+
+  const [currentNav, setCurrentNav] = useState<
+    "bookings" | "amount" | "ratings"
+  >("bookings");
 
   const fetchUserBooking = async () => getUserBooking(userId);
   const fetchUserData = async () => {
@@ -98,7 +105,42 @@ const UserDetails = (props: { params: { id: string } }) => {
             />
           </div>
           <nav className="sticky top-0 px-2 w-fit max-auto md:w-full md:px-5 py-3 mb-8 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 mt-7">
-            <ol></ol>
+            <ol
+              className={`${
+                currentNav === "bookings" ? "text-blue-600" : "text-gray-700"
+              } inline-flex mr-1 md:mr-5 items-center space-x-1 md:space-x-3`}
+            >
+              <li
+                onClick={() => setCurrentNav("bookings")}
+                className="inline-flex items-center cursor-pointer"
+              >
+                <BsJournalBookmarkFill />
+                <a
+                  className="inline-flex items-center mx-1 md:mx-3 text-xs md:text-sm font-medium"
+                  href=""
+                >
+                  Current Bookings
+                </a>
+              </li>
+            </ol>
+            <ol
+              className={`${
+                currentNav === "amount" ? "text-blue-600" : "text-gray-700"
+              } inline-flex mr-1 md:mr-5 items-center space-x-1 md:space-x-3`}
+            >
+              <li
+                onClick={() => setCurrentNav("amount")}
+                className="inline-flex items-center cursor-pointer"
+              >
+                <GiMoneyStack />
+                <a
+                  className="inline-flex items-center mx-1 md:mx-3 text-xs md:text-sm font-medium"
+                  href=""
+                >
+                  Amount Spent
+                </a>
+              </li>
+            </ol>
           </nav>
         </div>
       </div>
