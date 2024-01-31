@@ -25,6 +25,10 @@ const UserDetails = (props: { params: { id: string } }) => {
 
   const [roomId, setRoomId] = useState<string | null>(null);
 
+  const [isRatingVisible, setIsRatingVisible] = useState(false);
+
+  const toggleRatingModal = () => setIsRatingVisible((prevState) => !prevState);
+
   const fetchUserBooking = async () => getUserBooking(userId);
   const fetchUserData = async () => {
     const { data } = await axios.get<User>("/api/users");
@@ -142,7 +146,11 @@ const UserDetails = (props: { params: { id: string } }) => {
           </nav>
           {currentNav === "bookings" ? (
             userBookings && (
-              <Table bookingDetails={userBookings} setRoomId={setRoomId} />
+              <Table
+                bookingDetails={userBookings}
+                setRoomId={setRoomId}
+                toggleRatingModal={toggleRatingModal}
+              />
             )
           ) : (
             <></>
