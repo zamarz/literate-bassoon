@@ -165,6 +165,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
                   <p className="md:text-lg font-semibold">Customer Reviews</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                {/* Reviews */}
               </div>
             </div>
           </div>

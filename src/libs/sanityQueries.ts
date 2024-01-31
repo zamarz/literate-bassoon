@@ -30,7 +30,7 @@ export const getUserBookingsQuery = groq`*[_type == 'booking' && user._ref == $u
 
 }`;
 
-export const getUserDataQuery = groq`*[type == 'user'[0] && _id == $userId][0] {
+export const getUserDataQuery = groq`*[_type == 'user'[0] && _id == $userId][0] {
     _id,
     name,
     email,
@@ -38,4 +38,15 @@ export const getUserDataQuery = groq`*[type == 'user'[0] && _id == $userId][0] {
     about,
     _createdAt,
     image,
+}`;
+
+export const getRoomReviewsQuery = groq`*[_type == 'review' && hotelRoom._ref == $roomId] {
+    _id,
+    user -> {
+        name
+    },
+    userRating,
+    text,
+    _createdAt,
+
 }`;
