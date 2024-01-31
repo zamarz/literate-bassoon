@@ -12,6 +12,7 @@ import { useState } from "react";
 import { BsJournalBookmarkFill } from "react-icons/bs";
 import { GiMoneyStack } from "react-icons/gi";
 import Table from "@/components/Table/Table";
+import Chart from "@/components/Chart/Chart";
 
 const UserDetails = (props: { params: { id: string } }) => {
   const {
@@ -118,10 +119,7 @@ const UserDetails = (props: { params: { id: string } }) => {
                 className="inline-flex items-center cursor-pointer"
               >
                 <BsJournalBookmarkFill />
-                <a
-                  className="inline-flex items-center mx-1 md:mx-3 text-xs md:text-sm font-medium"
-                  href=""
-                >
+                <a className="inline-flex items-center mx-1 md:mx-3 text-xs md:text-sm font-medium">
                   Current Bookings
                 </a>
               </li>
@@ -136,10 +134,7 @@ const UserDetails = (props: { params: { id: string } }) => {
                 className="inline-flex items-center cursor-pointer"
               >
                 <GiMoneyStack />
-                <a
-                  className="inline-flex items-center mx-1 md:mx-3 text-xs md:text-sm font-medium"
-                  href=""
-                >
+                <a className="inline-flex items-center mx-1 md:mx-3 text-xs md:text-sm font-medium">
                   Amount Spent
                 </a>
               </li>
@@ -149,6 +144,12 @@ const UserDetails = (props: { params: { id: string } }) => {
             userBookings && (
               <Table bookingDetails={userBookings} setRoomId={setRoomId} />
             )
+          ) : (
+            <></>
+          )}
+
+          {currentNav === "amount" ? (
+            userBookings && <Chart userBookings={userBookings} />
           ) : (
             <></>
           )}
