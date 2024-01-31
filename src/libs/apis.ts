@@ -2,7 +2,7 @@ import { Booking, CreateBookingDto, Room } from "@/app/models/room";
 import sanityClient from "./sanity";
 import * as queries from "./sanityQueries";
 import axios from "axios";
-import { UpdateReviewDto } from "@/app/models/review";
+import { CreateReviewDto, UpdateReviewDto } from "@/app/models/review";
 
 export async function getFeaturedRoom() {
   const result = await sanityClient.fetch<Room>(
@@ -118,7 +118,7 @@ export async function checkReviewExists(
   userId: string,
   hotelRoomId: string
 ): Promise<null | { _id: string }> {
-  const query = `*[_type === 'review' && user._ref == $userId && hotelRoom._ref == $hotelRoomId][0] {
+  const query = `*[_type == 'review' && user._ref == $userId && hotelRoom._ref == $hotelRoomId][0] {
     _id
   }`;
   const params = {
@@ -144,6 +144,40 @@ export const updateReview = async ({
             text: reviewText,
             userRating,
           },
+        },
+      },
+    ],
+  };
+
+  const { data } = await axios.post(
+    `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-10-21/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
+    mutation,
+    { headers: { Authorization: `Bearer ${process.env.SANITY_STUDIO_TOKEN}` } }
+  );
+  return data;
+};
+
+export const createReview = async ({
+  hotelRoomId,
+  reviewText,
+  userId,
+  userRating,
+}: CreateReviewDto) => {
+  const mutation = {
+    mutations: [
+      {
+        create: {
+          _type: "review",
+          user: {
+            _type: "reference",
+            _ref: userId,
+          },
+          hotelRoom: {
+            _type: "reference",
+            _ref: hotelRoomId,
+          },
+          userRating,
+          text: reviewText,
         },
       },
     ],

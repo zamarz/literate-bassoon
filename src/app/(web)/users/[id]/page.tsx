@@ -43,6 +43,8 @@ const UserDetails = (props: { params: { id: string } }) => {
       return toast.error("Id not provided");
     }
 
+    setIsSubmittingReview(true);
+
     try {
       const { data } = await axios.post("/api/users", {
         reviewText: ratingText,
